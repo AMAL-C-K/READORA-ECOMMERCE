@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <h5 style="margin: 0 auto;text-align: center;text-decoration: underline;margin-top: 15px;">{{slug|upper}}</h5>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4"style="margin-top:auto;margin-left: auto;margin-right: auto;">
+        {% for book in page_obj%}
+        <div class="col">
+            <div class="card h-100" style="border: 1px solid black;">
+                <a href="{{book.get_book_url}}"><img src="{{book.image.url}}" class="card-img-top" alt="loading"style="height: 300px;"></a>
+            <div class="card-body">
+                <a href="{{book.get_book_url}}" style="text-decoration: none;color: black;">
+                    <h5 class="card-title">{{book.title}}</h5>
+                </a>
+                <p class="card-text">{{book.author}}</p>
+                <p class="card-text">Available copies: {{book.stock}}</p>
+                <div style="text-align: center;">
+                    <h6>{{book.price}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+        {% endfor%}
+
+{% endblock %}
