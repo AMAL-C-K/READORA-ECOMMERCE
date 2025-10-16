@@ -79,9 +79,4 @@ def price_filter(request):
     elif sort_order=='desc':
         books=books.order_by('-price')
     
-
-    
-
-
-
     return render(request,'price_filter.html',{'books':books,'min_price':min_price,'max_price':max_price})
