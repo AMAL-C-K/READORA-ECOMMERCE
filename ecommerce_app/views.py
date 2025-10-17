@@ -58,25 +58,28 @@ def search(request):
 
 
 def price_filter(request):
-    min_price= request.GET.get('min_price','').strip()
-    max_price= request.GET.get('max_price','').strip()
+    min_price = request.GET.get('min_price', '').strip()
+    max_price = request.GET.get('max_price', '').strip()
     sort_order = request.GET.get('sort')
 
     books = Book.objects.all()
 
+    # Filter by minimum price
     if min_price.isdigit():
         min_price_value = int(min_price)
-        if min_price_value >0:
-            books =Book.objects.filter(price__gte=int(min_price_value))
-    
+        if min_price_value > 0:
+            books = books.filter(price__gte=min_price_value)
+
+    # Filter by maximum price
     if max_price.isdigit():
         max_price_value = int(max_price)
-        if max_price_value >0:
-            books = Book.objects.filter(price__lte=int(max_price_value))
+        if max_price_value > 0:
+            books = books.filter(price__lte=max_price_value)
 
-    if sort_order=='asc':
-        books=books.order_by('price')
-    elif sort_order=='desc':
-        books=books.order_by('-price')
-    
-    return render(request,'price_filter.html',{'books':books,'min_price':min_price,'max_price':max_price})
+    # Sort results
+    if sort_order == 'asc':
+        books = books.order_by('price')
+    elif sort_order == 'desc':
+        books = books.order_by('-price')
+
+    return render(request, 'price_filter.html', {'books': books,'min_price': min_price,'max_price': max_price})
