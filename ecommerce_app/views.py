@@ -51,7 +51,7 @@ def search(request):
 
         paginator = Paginator(books,12)
         page_number = request.GET.get('page')
-        page_obj = paginator.get_page('page_number')
+        page_obj = paginator.get_page(page_number)
 
 
     return render(request, 'search.html', {'page_obj': page_obj,'query': query})
